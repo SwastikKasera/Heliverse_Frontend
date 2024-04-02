@@ -2,7 +2,7 @@ import {FormEvent, useState} from 'react'
 import bkgImage from '../assets/grid.svg'
 import axios from 'axios'
 import toast, {Toaster} from 'react-hot-toast'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 const backgroundStyle = {
     backgroundImage: `url(${bkgImage})`,
@@ -11,14 +11,13 @@ const backgroundStyle = {
     
 }
 
-const Login = () => {
-    const navigate = useNavigate()
-    const [loginDetails, setLoginDetails] = useState({
+const Register = () => {
+    const [registerDetails, setRegisterDetails] = useState({
         "email":"",
         "password":""
     })
-    const loginUser = async () => {
-        return axios.post(`${process.env.REACT_APP_API}/login`, loginDetails, {
+    const registerUser = async () => {
+        return axios.post(`${process.env.REACT_APP_API}/register`, registerDetails, {
             headers: {
               'Content-Type': 'application/json',
             },
@@ -26,19 +25,10 @@ const Login = () => {
       };
     const handleFormSubmit = async (e:FormEvent) => {
         e.preventDefault();
-        toast.promise(loginUser(),
+        toast.promise(registerUser(),
           {
             loading: 'Registering...',
-            success:(resp)=>{
-                if(resp?.status === 200){
-                    localStorage.setItem("auth", resp.data.token)
-                    setTimeout(()=>{
-                        navigate('/')
-                    },2000)
-                    return "User login success"
-                }
-                return "Error in Login"
-            },
+            success:"Register Success",
             error: (resp)=>{
                 return resp?.response?.data?.msg
             }
@@ -48,7 +38,7 @@ const Login = () => {
     const handleInputChange = (e:React.ChangeEvent<HTMLInputElement>)=>{
         const {name, value} = e.target
         
-        setLoginDetails((prevDetail) => ({
+        setRegisterDetails((prevDetail) => ({
             ...prevDetail,
             [name]:value
         }))
@@ -59,7 +49,7 @@ const Login = () => {
             <form onSubmit={handleFormSubmit}>
             <div className='bg-[#181818] w-96 p-8 border-[#454545] border-2 rounded-3xl flex flex-col justify-center items-center gap-4'>
                 <div className='w-full text-white text-3xl flex justify-center'>
-                    <h1>Login</h1>
+                    <h1>Register</h1>
                 </div>
                 <div className='flex gap-2 w-full'>
                     <div className='w-full'>
@@ -74,7 +64,7 @@ const Login = () => {
                     </div>
                 </div>
                 <div className='w-full mt-2'>
-                    <button className='bg-teal-500 py-2 w-full text-center rounded-lg text-neutral-950 font-bold' type='submit'>Login</button>
+                    <button className='bg-teal-500 py-2 w-full text-center rounded-lg text-neutral-950 font-bold' type='submit'>Register</button>
                 </div>
                 <div className='flex items-center justify-between w-full'>
                     <hr className='w-32 border-t-2 border-neutral-600' />
@@ -85,7 +75,7 @@ const Login = () => {
                     <button className='bg-[#181818] mt-2 b-2 border-[#454545] text-[#eeeeee] text-base border-2 rounded-lg p-2 w-full'>Sign up with Google</button>
                 </div>
                 <div className='w-full flex justify-center items-center'>
-                    <p className='text-[#eeeeee]'>No account? <span className='text-teal-500 hover:underline hover:cursor-pointer'><Link to="/register">Register Here</Link></span></p>
+                    <p className='text-[#eeeeee]'>Already have an account? <span className='text-teal-500 hover:underline hover:cursor-pointer'><Link to="/login">Login Here</Link></span></p>
                 </div>
             </div>
             </form>
@@ -95,4 +85,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Register
