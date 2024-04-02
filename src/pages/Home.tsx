@@ -4,7 +4,7 @@ import Card from '../components/Card'
 import { useNavigate } from 'react-router-dom'
 import { IoIosSearch } from "react-icons/io";
 import { Toaster } from 'react-hot-toast';
-import { jwtDecode } from 'jwt-decode'; 'jwt-decode'
+import { jwtDecode } from 'jwt-decode';
 interface CardProps {
     id:number,
     _id?:string
@@ -16,6 +16,12 @@ interface CardProps {
     domain:string,
     available:boolean,
     handleClick:any
+}
+
+interface DecodedToken {
+  userId: string;
+  iat?: string | number;
+  // Add other properties as needed based on your decoded token structure
 }
 
 const Home = () => {
@@ -30,15 +36,16 @@ const Home = () => {
       startIndex:0,
       endIndex:19
     })
-    const token = localStorage.getItem('auth')
-    const decoded = jwtDecode(token)
+    const token = localStorage.getItem('auth') as string | null;
+    let decoded: DecodedToken | null = null;
+    console.log("process.env.REACT_APP_API", process.env.REACT_APP_API);
+    
     const navigate = useNavigate()
     useEffect(()=>{
-      if(!token){
+      if(token === null){
         navigate('/login')
-        console.log("token", token);
-        
       }else{
+          decoded = jwtDecode(token)
           const fetchData = async ()=>{
             const resp = await axios.get(`${process.env.REACT_APP_API}/api/users`, {
                 headers:{
@@ -114,11 +121,10 @@ const Home = () => {
     const handleClick = (userId: number) => {
       setTeam(prevTeam => [...prevTeam, { id: userId }]);
     };
-    
     const createTeam = async ()=>{
-      const response = axios.post(`${process.env.REACT_APP_API}/api/team`, {userId: decoded.userId, teamMembers:team}, {
+      const response = axios.post(`${process.env.REACT_APP_API}/api/team`, {userId: decoded?.userId, teamMembers:team}, {
         headers:{
-          Authorization:`Brearer ${token}`
+          Authorization:`Bearer ${token}`
         }
       })
     }

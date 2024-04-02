@@ -18,7 +18,7 @@ const Login = () => {
         "password":""
     })
     const loginUser = async () => {
-        return axios.post('http://localhost:4000/login', loginDetails, {
+        return axios.post(`${process.env.REACT_APP_API}/login`, loginDetails, {
             headers: {
               'Content-Type': 'application/json',
             },
