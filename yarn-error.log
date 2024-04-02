@@ -1,5 +1,5 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add redux react-redux
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add jwtDecode
 
 PATH: 
   C:\Program Files\Common Files\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Git\cmd;C:\Users\SwastikPC\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\WINDOWS\System32\OpenSSH\;C:\maven\apache-maven-3.9.6\bin;C:\Program Files (x86)\Yarn\bin\;C:\Users\SwastikPC\AppData\Local\Microsoft\WindowsApps;C:\Users\SwastikPC\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\SwastikPC\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Users\SwastikPC\AppData\Local\Yarn\bin
@@ -8,14 +8,23 @@ Yarn version:
   1.22.4
 
 Node version: 
-  18.19.1
+  16.20.2
 
 Platform: 
   win32 x64
 
 Trace: 
-  Error: connect ETIMEDOUT 2606:4700::6810:1e22:443
-      at TCPConnectWrap.afterConnect [as oncomplete] (node:net:1555:16)
+  Error: https://registry.yarnpkg.com/jwtDecode: Not found
+      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:66096:18)
+      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140748:22)
+      at Request.emit (node:events:513:28)
+      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141720:10)
+      at Request.emit (node:events:513:28)
+      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141642:12)
+      at Object.onceWrapper (node:events:627:28)
+      at IncomingMessage.emit (node:events:525:35)
+      at endReadableNT (node:internal/streams/readable:1358:12)
+      at processTicksAndRejections (node:internal/process/task_queues:83:21)
 
 npm manifest: 
   {

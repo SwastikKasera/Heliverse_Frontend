@@ -4,6 +4,7 @@ import Card from '../components/Card'
 import { useNavigate } from 'react-router-dom'
 import { IoIosSearch } from "react-icons/io";
 import { Toaster } from 'react-hot-toast';
+import { jwtDecode } from 'jwt-decode'; 'jwt-decode'
 interface CardProps {
     id:number,
     _id?:string
